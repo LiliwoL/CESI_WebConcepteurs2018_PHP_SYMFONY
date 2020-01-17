@@ -11,6 +11,18 @@ Au menu:
 * Controllers
 * Moteur de vue TWIG
 
+#### Pour cloner ce projet
+
+```bash
+git clone https://github.com/LiliwoL/CESI_WebConcepteurs2018_PHP_SYMFONY.git
+```
+
+Pensez ensuite à faire un **composer install** pour télécharger toutes les dépendances!
+```bash
+cd CESI_WebConcepteurs2018_PHP_SYMFONY
+composer install
+```
+
 
 #### Rappels sur quelques commandes de la console Symfony
 
