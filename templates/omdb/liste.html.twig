@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des films pour la recherche {{ query }}{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>{{ totalResults }} films trouvés avec la recherche {{ query | upper }}</h1>
+
+    {{ dump(list) }}
+
+    <div class="row">
+        {% for movie in list %}
+            <div class="col s4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{{ movie.Poster }}">        
+                        <span class="card-title">
+                            {{ movie.Title }} - {{ movie.Year }}
+                        </span>
+                    </div>
+                    <div class="card-action">
+                        {# Ici on va créer une route avec un paramètre #}
+                        {# Rendez vous sur https://symfony.com/doc/current/templates.html#templates-link-to-pages pour apprendre à faire des liens en twig #}
+                        <a href="{{ path('Fiche dun film', { imdbID: movie.imdbID }) }}" class="waves-effect waves-light btn-large">Voir la fiche du film</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

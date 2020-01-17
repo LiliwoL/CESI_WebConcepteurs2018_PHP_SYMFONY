@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affichage d'un article{% endblock %}
+
+{% block body %}
+
+  {{ dump( article) }}
+    
+  <div class="row">
+    <div class="col s12 m7">
+      <div class="card">
+        <div class="card-image">
+          <img src="{{ article.image }}">
+          <span class="card-title">
+            {{ article.owner.nameTitle }} {{ article.owner.firstName }} {{ article.owner.lastName }}
+          </span>
+        </div>
+        <div class="card-content">
+          <p>{{ article.message }}</p>
+        </div>
+        <div class="card-action">
+          {# Rendez vous sur https://symfony.com/doc/current/templates.html#templates-link-to-pages pour apprendre à faire des liens en twig #}
+          <a href="{{ path('Liste des articles bêbêtes') }}">Retour à la liste des articles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+            
+{% endblock %}

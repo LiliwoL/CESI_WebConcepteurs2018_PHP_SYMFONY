@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste d'articles{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    {# Un commentaire TWIG #}
+    <h1>Affichage des articles</h1>
+
+    <div class="row">
+
+        {% for post in liste %}
+            <div class="col s4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{{ post.image }}">
+                        <span class="card-title">{{ post.owner.nameTitle }} {{ post.owner.firstName }} {{ post.owner.lastName }}</span>
+                    </div>
+                <div class="card-content">
+                    <p>{{ post.message }}</p>
+                </div>
+                <div class="card-action">
+                    {# Ici on va créer une route avec un paramètre #}
+                    {# Rendez vous sur https://symfony.com/doc/current/templates.html#templates-link-to-pages pour apprendre à faire des liens en twig #}
+                    <a href="{{ path('Affiche un article bêbête', { idArticleBebete: post.id }) }}">Lire l'article</a>
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+        
+    </div>
+    
+</div>
+{% endblock %}
