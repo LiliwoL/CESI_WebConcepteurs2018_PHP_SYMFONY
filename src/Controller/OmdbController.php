@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Form\ShareMovieMailType;
+
 class OmdbController extends AbstractController
 {
     // Définir une constante de la classe
@@ -82,13 +84,25 @@ class OmdbController extends AbstractController
 
         // On dispose donc d'un tableau comprenant toutes les infos du film
 
+
+
+        // ############# Ajout du formulaire de partage
+
+        // Construire notre formulaire à partir du MailType généré au préalable
+        // use App\Form\ShareMovieMailType
+        $formulaireMail = $this->createForm (
+            ShareMovieMailType::class // Classe du formulaire
+        );
+
         return $this->render(
             // On utilise le fichier twig suivant
             'omdb/movie.html.twig', // Il faut créer ce fichier dans templates/omdb
 
             // Paramètres passés au fichier twig
             [
-                'movie' => $results
+                'movie' => $results,
+                // On passe le formulaire généré à la vue
+                'formulaire'    => $formulaireMail->createView()
             ]
         );
     }
