@@ -90,9 +90,21 @@ class OmdbController extends AbstractController
 
         // Construire notre formulaire à partir du MailType généré au préalable
         // use App\Form\ShareMovieMailType
+
         $formulaireMail = $this->createForm (
             ShareMovieMailType::class // Classe du formulaire
+            ,null,  // Données vides
+            [
+                // Ici l'action du contrôleur
+                'action' => $this->generateUrl
+                (
+                    'Partage dun film', // Nom de la route
+                    ['imdbID' => $imdbID ] // Paramètres de la route
+                )
+            ]
         );
+
+
 
         return $this->render(
             // On utilise le fichier twig suivant

@@ -43,3 +43,36 @@ Création d'un controller
 php bin/console make:controller
 ```
 
+***
+
+### Symfony - Février 2020
+
+
+On poursuit la découverte du framework
+
+Au menu:
+* Formulaires
+* SSH et travail à distance
+    * Idéalement on monte le dossier avec **SSHFS**
+* Gestion des formulaires
+* Vue d'un email
+    * Utilisation de **mailtrap.io**
+
+
+### Connexion SSH
+
+On se connecte via
+```bash
+ssh user@host
+```
+
+### Mise à jour du projet avec GIT
+
+```bash
+git pull
+```
+
+
+
+
+
