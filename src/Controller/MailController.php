@@ -59,9 +59,25 @@ class MailController extends AbstractController
                 // $params va récupérer les données du formulaire présentes dans la requête
                 $params = $formulaireMail->getData();
 
-                // Récupération des paramètres
+                // Récupération des paramètres du formulaire
                 $dest = $params['dest'];
                 $message = $params['message'];
+                $object = $params['object'];
+
+
+                // Récupération des infos du film
+                    // Création de l'url pour rechercher UN film
+                    // Ici c'est le paramètre i pour rechercher avec un imdbID
+                    // http://www.omdbapi.com/#parameters
+                    // On va chercher la constante URLAPI dans le contrôleur OmdbController
+                    $url = OmdbController::URLAPI . "i=" . $imdbID;
+
+                    // Appeler la méthode makeRequest définie plus bas dans le contrôleur
+                    $movie = $this->makeRequest ( $url );
+
+
+
+
 
                 // 2. Créer le mail
 
@@ -82,7 +98,8 @@ class MailController extends AbstractController
                                 'emails/shareMovie.html.twig',
                                 [
                                     'message' => $message,
-                                    'imdbID' => $imdbID
+                                    'objet' => $object,
+                                    'movie' => $movie
                                 ]
                             ),
                             'text/html'
@@ -97,5 +114,47 @@ class MailController extends AbstractController
 
             // En cas de non soumission on redirige
             return $this->redirectToRoute( 'Liste des films' );
+    }
+
+
+    /**
+     * Fonction qui exécutera la requete en cURL
+     *
+     * ATTENTION il faudrait plutôt la mettre dans un service!
+     *
+     * @param string $url
+     * @return array
+     */
+    private function makeRequest ( string $url )
+    {
+        // Initialisation de cURL
+        $ch = curl_init();
+        // Will return the response, if false it print the response
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // Au cas où on a un souci avec le SSL
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        // Set the url
+        curl_setopt($ch, CURLOPT_URL,$url);
+
+        // Execute
+        $result=curl_exec($ch);
+
+        // En cas d'erreur
+        if ( $result === false )
+        {
+            // Affichage de l'erreur
+            dump ( curl_error($ch) );
+        }
+
+        // Closing
+        curl_close($ch);
+
+        // Decodage du JSON reçu
+        $data = json_decode($result, true);
+
+        // Renvoi du tableau JSON
+        return (array) $data;
     }
 }
