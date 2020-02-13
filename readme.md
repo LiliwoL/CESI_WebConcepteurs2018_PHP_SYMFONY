@@ -57,6 +57,11 @@ Au menu:
 * Gestion des formulaires
 * Vue d'un email
     * Utilisation de **mailtrap.io**
+    * Design des emails spécifiques
+    * Présentation de 
+        * https://caniuse.email/
+        * https://mjml.io/
+* Présentation de Doctrine
 
 
 ### Connexion SSH
@@ -70,6 +75,31 @@ ssh user@host
 
 ```bash
 git pull
+```
+
+Attention à bien mettre à jour les dépendances!
+
+```bash
+composer install
+```
+
+### Doctrine
+
+Doctrine est une couche d'abstraction de la base de données
+https://symfony.com/doc/current/doctrine.html
+
+Configurer l'accès à la base vie la fichier **.env**
+
+ATTENTION! La base de données **formation_symfony** doit exister avant!
+
+```
+DATABASE_URL=mysql://root:root@127.0.0.1:3306/formation_symfony
+```
+
+Vérifier que la connexion fonctionne en créant la base
+
+```bash
+php bin/console doctrine:database:create
 ```
 
 
